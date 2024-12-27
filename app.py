@@ -34,6 +34,8 @@ def logout():
 def handle_message(message):
     chat_history.append(message)
     send(message, broadcast=True)
-
+@socketio.on('connect')
+def handle_new_user():
+    send(f"Someone by the name of {username} has joined!")
 if __name__ == "__main__":
     socketio.run(app, debug=True)
