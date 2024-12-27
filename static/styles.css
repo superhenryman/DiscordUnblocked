@@ -102,7 +102,8 @@ svg {
   fill: #0056a8;
 }
 #credits {
-  position:absolute;
-  bottom:0;
-  left:0;
+    position:absolute;
+    bottom:0;
+    left:0;
+    font-size:10px;
 }
