@@ -21,6 +21,7 @@ def chatpage():
     if "username" not in session:
         return redirect(url_for("home"))
     messages = chat_history
+    global username
     username = session["username"]
     socketio.send(f"Someone by the name of {username} has joined! Say Hi!")
     return render_template("chatpage.html", messages=messages, username=username)
