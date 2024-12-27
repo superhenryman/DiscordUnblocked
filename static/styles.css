@@ -29,7 +29,16 @@ h1 {
 }
 
 .chat-message {
+  display: flex;
+  align-items: center;
   margin: 10px 0;
+}
+
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
 }
 
 .chat-message span {
@@ -102,8 +111,12 @@ svg {
   fill: #0056a8;
 }
 #credits {
-    position:absolute;
-    bottom:0;
-    left:0;
-    font-size:10px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.chat-message .username {
+  font-weight: bold;
+  color: #0078d7;
 }
