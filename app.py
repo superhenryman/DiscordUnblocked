@@ -22,6 +22,7 @@ def chatpage():
         return redirect(url_for("home"))
     messages = chat_history
     username = session["username"]
+    socketio.emit('message', f'{username} has entered our personal hell!', broadcast=True)
     return render_template("chatpage.html", messages=messages, username=username)
 
 @app.route("/logout")
