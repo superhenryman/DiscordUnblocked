@@ -22,7 +22,7 @@ def chatpage():
         return redirect(url_for("home"))
     messages = chat_history
     username = session["username"]
-    socketio.emit('{username} has joined this place!')
+    socketio.send(f"Someone by the name of {username} has joined! Say Hi!")
     return render_template("chatpage.html", messages=messages, username=username)
 
 @app.route("/logout")
@@ -34,8 +34,5 @@ def logout():
 def handle_message(message):
     chat_history.append(message)
     send(message, broadcast=True)
-@socketio.on('connect')
-def handle_new_user():
-    send(f"Someone by the name of {username} has joined!")
 if __name__ == "__main__":
     socketio.run(app, debug=True)
