@@ -11,28 +11,59 @@
   <body>
     <div class="container">
       <h1>Chat App</h1>
-      <script>
-        const username = "{{ username }}";
-      </script>
       <div class="chat-box" id="chatBox">
-        <p>When leaving, click logout PLEASE!</p>
       </div>
-      <form method="POST" id="chatForm">
-        <input type="text" id="messageInput" name="data" placeholder="Type your message here.." required></input>
-        <button type="submit" id="myAnchor">  <div class="send-icon" id="sendIcon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M2.01 21l20.99-9-20.99-9-.01 7 15 2-15 2z"/>
-          </svg>
-        </div></button>
 
+      <form id="chatForm">
+        <input type="text" id="messageInput" name="data" placeholder="Type your message here.."></input>
+        <button type="submit" id="myAnchor">
+          <div class="send-icon" id="sendIcon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M2.01 21l20.99-9-20.99-9-.01 7 15 2-15 2z"/>
+            </svg>
+          </div>
+        </button>
       </form>
       <form action="/logout">
         <button type="submit">Log Out</button>
       </form>
     </div>
-    <!--Complete javascript shit-->
-    <script src="../static/main.js"></script>
     <script>
+      const socket = io.connect();
+
+      document.getElementById('chatForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting via HTTP
+        const messageInput = document.getElementById('messageInput');
+        const message = messageInput.value.trim();
+        if (message) {
+          socket.emit('message', message); // Emit the message event
+          messageInput.value = ''; // Clear the input field
+        }
+      });
+
+      socket.on('message', function(data) {
+        const { username, message, profilePic } = data;
+
+        const messageElement = document.createElement("div");
+        messageElement.classList.add("chat-message");
+
+        const profileImage = document.createElement("img");
+        profileImage.src = profilePic || "/static/uploads/default-profile.png";
+        profileImage.alt = `${username}'s profile picture`;
+        profileImage.classList.add("profile-pic");
+
+        const textElement = document.createElement("span");
+        textElement.textContent = `${username}: ${message}`;
+
+        messageElement.appendChild(profileImage);
+        messageElement.appendChild(textElement);
+
+        const chatBox = document.getElementById("chatBox");
+        chatBox.appendChild(messageElement);
+
+        chatBox.scrollTop = chatBox.scrollHeight;
+      });
+
       const sendIcon = document.getElementById('sendIcon');
       sendIcon.addEventListener('click', () => {
         sendIcon.classList.add('fly-away');
@@ -46,7 +77,7 @@
       });
     </script>
     <footer id="credits">
-      <h1>Made with 💝 by superhenryman and MAH2</h1>
+      <p>Made with 💝 by superhenryman and MAH2</p>
     </footer>
   </body>
 </html>
