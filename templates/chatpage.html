@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat App</title>
+    <link rel="stylesheet" href="../static/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/socket.io-client@4.5.1/dist/socket.io.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Chat App</h1>
+      <script>
+        const username = "{{ username }}";
+      </script>
+      <div class="chat-box" id="chatBox">
+        <p>Always click "Send" to reload the page!</p>
+      </div>
+      <form method="POST" id="chatForm">
+        <input type="text" id="messageInput" name="data" placeholder="Type your message here.."></input>
+        <button type="submit" id="myAnchor">  <div class="send-icon" id="sendIcon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M2.01 21l20.99-9-20.99-9-.01 7 15 2-15 2z"/>
+          </svg>
+        </div></button>
+        <script>
+          document.getElementById("myAnchor").addEventListener("click", function(event){
+              console.log("Has beeen clicked.")
+          });
+        </script>
+      </form>
+      <form action="/logout">
+        <button type="submit">Log Out</button>
+      </form>
+    </div>
+    <!--Complete javascript shit-->
+    <script src="../static/main.js"></script>
+    <script>
+      const sendIcon = document.getElementById('sendIcon');
+      sendIcon.addEventListener('click', () => {
+        sendIcon.classList.add('fly-away');
+        sendIcon.addEventListener(
+          'animationend',
+          () => {
+            sendIcon.classList.remove('fly-away');
+          },
+          { once: true }
+        );
+      });
+    </script>
+    <footer id="credits">
+      <h1>Made with 💝 by Kareem Alhaj and Mohammed.</h1>
+    </footer>
+  </body>
+</html>

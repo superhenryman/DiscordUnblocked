@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loading...</title>
+    <style>
+      body {
+        height: 100vh;
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+
+      .loader {
+        margin: auto;
+        box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.3);
+        margin-top: 0;
+        margin-bottom: 0;
+        border: 16px solid #f3f3f3;
+        border-top: 16px solid #3498db;
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Loading...</h1>
+    <div class="loader"></div>
+    <script>
+      function navigate() {
+        window.location.href = "chatpage.html"; // redirect when done!
+      }
+      fetch("slow").then(navigate);
+    </script>
+  </body>
+</html>
