@@ -108,14 +108,19 @@
   <body>
     <div>
       <h1>Enter your username</h1>
-      <form method="POST">
+      <form method="POST" enctype="multipart/form-data">
         <label for="data">Username:</label>
         <input
           type="text"
           name="data"
           id="data"
           placeholder="Type your username"
+          required
         />
+
+        <label for="profilePic">Profile Picture:</label>
+        <input type="file" name="profilePic" id="profilePic" accept="image/*" />
+
         <button type="submit">Submit</button>
       </form>
     </div>
