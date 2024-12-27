@@ -28,7 +28,7 @@ def chatpage():
 @app.route("/logout")
 def logout():
     session.pop("username", None)
-    print("log out")
+    socketio.send(f"{username} has left us!")
     return redirect(url_for("home"))
 @socketio.on('message')
 def handle_message(message):
