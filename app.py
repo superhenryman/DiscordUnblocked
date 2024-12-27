@@ -53,7 +53,7 @@ def chatpage():
 def logout():
     username = session.pop("username", None)
     if username:
-        socketio.emit('message', f"{username} has left the chat!", broadcast=True)
+        socketio.emit('message', f"{username} has left the chat!")
     return redirect(url_for("home"))
 
 @socketio.on('message')
