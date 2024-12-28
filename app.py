@@ -52,8 +52,9 @@ def chatpage():
 @app.route("/logout")
 def logout():
     username = session.pop("username", None)
+    print(username)
     if username:
-        socketio.emit('message', f"{username} has left the chat!")
+        socketio.emit('message', {"username": username, "message": f"{username} has left the chat!", "profilePic": url_for('static', filename=f"uploads/{user_profiles.get(username, 'default.png')}")})
     return redirect(url_for("home"))
 
 @socketio.on('message')
@@ -71,6 +72,5 @@ def handle_message(message):
 
         chat_history.append(message_data)
         send(message_data, broadcast=True)
-
 if __name__ == "__main__":
     socketio.run(app, debug=True)
