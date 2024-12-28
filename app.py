@@ -57,7 +57,7 @@ def logout():
          socketio.emit('message', {
     "message": f"{username} has left the chat!",
     "profilePic": url_for('static', filename=f"uploads/{user_profiles.get(username, 'default.png')}")
-}, broadcast=True)
+})
     return redirect(url_for("home"))
 
 @socketio.on('message')
