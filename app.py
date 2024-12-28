@@ -49,17 +49,19 @@ def chatpage():
     profile_pic = user_profiles.get(username, "default.png")  # Use default if not set
     return render_template("chatpage.html", username=username, profile_pic=profile_pic)
 
+
 @app.route("/logout")
+
 def logout():
     username = session.pop("username", None)
-    print(username)
+    profile_pic_system = user_profiles.get("System", "system.png")
     if username:
          socketio.emit('message', {
-    "message": f"{username} has left the chat!",
-    "profilePic": url_for('static', filename=f"uploads/{user_profiles.get(username, 'default.png')}")
-})
+            "username": "Server",
+            "message": f"{username} has left the chat!",
+            "profilePic": url_for('static', filename=f"uploads/{profile_pic_system}"),
+        })
     return redirect(url_for("home"))
-
 @socketio.on('message')
 def handle_message(message):
     username = session.get("username")
