@@ -9,6 +9,12 @@
     <script src="https://cdn.jsdelivr.net/npm/socket.io-client@4.5.1/dist/socket.io.min.js"></script>
   </head>
   <body>
+    <script>
+    const username = "{{ username }}";
+    if (!username) {
+        console.error("WAAAA NO USERNAME");
+    }
+</script>
     <button class="toggle-sidebar">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
@@ -128,6 +134,8 @@
         container.classList.toggle('container-dark-mode', darkModeToggle.checked);
   });
 });
+    </script>
+    <script src="main.js">
     </script>
     <footer id="credits">
       <p>Made with 💝 by superhenryman and MAH2</p>
