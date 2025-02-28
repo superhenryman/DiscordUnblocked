@@ -172,6 +172,9 @@
         </div>
         <button type="submit">Enter Chat</button>
       </form>
+      {% if error %}
+        <h1>{{ error }}</h1>
+      {% endif %}
     </div>
     <script>
       document

@@ -17,17 +17,18 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 # Data Storage
 user_profiles = {}
 chat_history = []
-
+usernames = set()
 # Routes
 @app.route("/", methods=["GET", "POST"])
-def home():
+def login():
     if request.method == "POST":
+        if len(usernames) >= 10:
+            return render_template("login.html", error="Too many people are on the chatpage.")
         username = request.form.get("data")
         profile_pic = request.files.get("profilePic")
-
         if username:
             session["username"] = username
-
+            usernames.append(username)
             if profile_pic:
                 filename = secure_filename(profile_pic.filename)
                 profile_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
@@ -51,10 +52,10 @@ def chatpage():
 
 
 @app.route("/logout")
-
 def logout():
     username = session.pop("username", None)
     profile_pic_system = user_profiles.get("System", "system.png")
+    usernames.discard(usernames)
     if username:
          socketio.emit('message', {
             "username": "Server",
@@ -68,7 +69,6 @@ def handle_message(message):
     if username:
         profile_pic = user_profiles.get(username, "default.png")  # Use default if not set
         profile_pic_url = url_for('static', filename=f"uploads/{profile_pic}")
-
         message_data = {
             "username": username,
             "message": message,
