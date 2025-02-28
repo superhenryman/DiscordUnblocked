@@ -38,7 +38,7 @@ def home():
 
             return redirect(url_for("chatpage"))
 
-    return render_template("aju.html")
+    return render_template("login.html")
 
 @app.route("/chatpage", methods=["GET"])
 def chatpage():
