@@ -59,7 +59,7 @@ def logout():
             "message": f"{username} has left the chat!",
             "profilePic": url_for('static', filename=f"uploads/{profile_pic_system}"),
         })
-    return redirect(url_for("home"))
+    return redirect(url_for("login"))
 
 @socketio.on('message')
 def handle_message(message):
